@@ -65,6 +65,13 @@
     <audio id="o-sound" src="audio/o.wav"></audio>
     <audio id="win-sound" src="audio/win.wav"></audio>
 
+    <!-- Add scoreboard elements -->
+    <div id="scoreboard">
+        <h2>Scoreboard</h2>
+        <p>X Wins: <span id="x-score">0</span></p>
+        <p>O Wins: <span id="o-score">0</span></p>
+    </div>
+
     <script>
         const cells = document.querySelectorAll('.cell');
         const restartButton = document.getElementById('restart');
@@ -86,6 +93,10 @@
             [0, 4, 8],
             [2, 4, 6]
         ];
+
+        // Initialize score variables
+        let xScore = 0;
+        let oScore = 0;
 
         function handleCellClick(event) {
             const clickedCell = event.target;
@@ -129,6 +140,16 @@
                 winSound.currentTime = 0; // Reset win sound to start
                 winSound.play(); // Play win sound
                 alert(`Player ${currentPlayer} wins!`);
+                
+                // Update score
+                if (currentPlayer === 'X') {
+                    xScore++;
+                    document.getElementById('x-score').textContent = xScore;
+                } else {
+                    oScore++;
+                    document.getElementById('o-score').textContent = oScore;
+                }
+
                 gameActive = false;
                 return;
             }
